@@ -89,6 +89,7 @@ func (j *jws) getNonceFromResponse(resp *http.Response) error {
 }
 
 func (j *jws) getNonce() error {
+	fmt.Println("getting a nonce")
 	resp, err := httpHead(j.directoryURL)
 	if err != nil {
 		return err
