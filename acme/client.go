@@ -343,6 +343,13 @@ DNSNames:
 	return cert, failures
 }
 
+// Authz creates an authz for the given domain name, and throws it away.
+func (c *Client) Authz(domain string) {
+	authMsg := authorization{Resource: "new-authz", Identifier: identifier{Type: "dns", Value: domain}}
+	var authz authorization
+	postJSON(c.jws, c.user.GetRegistration().NewAuthzURL, authMsg, &authz)
+}
+
 // ObtainCertificate tries to obtain a single certificate using all domains passed into it.
 // The first domain in domains is used for the CommonName field of the certificate, all other
 // domains are added using the Subject Alternate Names extension. A new private key is generated
